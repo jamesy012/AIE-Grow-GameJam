@@ -24,4 +24,11 @@ public class Leaf : MonoBehaviour
             this.gameObject.SetActive(false);
         }
     }
+
+    //void OnBecameInvisible()
+    //{
+    //    m_timer = 0.0f;
+    //    this.gameObject.SetActive(false);
+    //}
+
 }
