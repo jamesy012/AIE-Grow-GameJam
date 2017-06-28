@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float m_moveSpeed = 10.0f;
-
+    public float m_currentHeight = 0.0f;
 
     private Vector3 m_moveDir = Vector3.zero;
     private CharacterController m_charCont;
@@ -30,14 +30,11 @@ public class Player : MonoBehaviour
             float distanceSqrd = m_moveDir.sqrMagnitude;
 
 
-            //if (distanceSqrd > m_moveSpeed*2)
-            //{
-               
-            //}
-
         }
-
+        m_currentHeight = this.transform.position.y;
         this.transform.up = m_moveDir.normalized;
         m_charCont.Move(this.transform.up * m_moveSpeed * Time.deltaTime);
+
+
     }
 }
