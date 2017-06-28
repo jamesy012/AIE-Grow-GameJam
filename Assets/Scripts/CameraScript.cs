@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [System.Serializable]
 public enum CameraModes {
     Debug,
@@ -15,9 +14,13 @@ public class CameraScript : MonoBehaviour {
 
     private Transform m_PlayerTransform;
 
-    [Header("a")]
-    [Range(0.0f,1.0f)]
+    [Header("Side move varaibles")]
+    [Range(0.0f, 0.5f)]
     public float m_VerticalRatio = 0.25f;
+    [Range(0.0f, 0.5f)]
+    public float m_HorizontalRatio = 0.25f;
+
+    public Vector2 m_CameraMoveSpeed = Vector2.one * 0.05f;
 
     // Use this for initialization
     void Start() {
@@ -42,7 +45,7 @@ public class CameraScript : MonoBehaviour {
                 cameraDebug();
                 break;
             case CameraModes.SideMove:
-                cameraDebug();
+                sideMove();
                 break;
             case CameraModes.DontMove:
             default:
@@ -56,5 +59,45 @@ public class CameraScript : MonoBehaviour {
         pos.y = m_PlayerTransform.position.y;
 
         transform.position = pos;
+    }
+
+    private void sideMove() {
+        Vector3 pos = transform.position;
+        Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(m_PlayerTransform.position);
+
+        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        Vector2 screenSizeRatio = new Vector2();
+        playerScreenPos -= screenSize / 2;
+
+        screenSizeRatio.x = screenSize.x * m_HorizontalRatio;
+        screenSizeRatio.y = screenSize.y * m_VerticalRatio;
+
+        
+
+        if (screenSizeRatio.x < playerScreenPos.x) {
+            float moveRatio = calcRatioFromSideOfScreen(screenSize.x, playerScreenPos.x,true);
+            pos.x += m_CameraMoveSpeed.x * moveRatio;
+        }
+        if (-screenSizeRatio.x > playerScreenPos.x) {
+            float moveRatio = calcRatioFromSideOfScreen(screenSize.x, -playerScreenPos.x,true);
+            pos.x -= m_CameraMoveSpeed.x * moveRatio;
+        }
+        if (screenSizeRatio.y < playerScreenPos.y) {
+            float moveRatio = calcRatioFromSideOfScreen(screenSize.y, playerScreenPos.y,false);
+            pos.y += m_CameraMoveSpeed.y * moveRatio;
+        }
+        if (-screenSizeRatio.y > playerScreenPos.y) {
+            float moveRatio = calcRatioFromSideOfScreen(screenSize.y, -playerScreenPos.y,false);
+            pos.y -= m_CameraMoveSpeed.y * moveRatio;
+        }
+
+        //print(screenSize.x + " - " + playerScreenPos.x);
+
+        transform.position = pos;
+    }
+
+    private float calcRatioFromSideOfScreen(float a_ScreenSize, float a_PlayerPos,bool a_Horizontal) {
+        float ratio = a_Horizontal ? m_HorizontalRatio : m_VerticalRatio;
+        return (a_PlayerPos / (a_ScreenSize / 2) - (ratio * 2.0f)) * 2;
     }
 }
