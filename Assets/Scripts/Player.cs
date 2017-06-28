@@ -30,12 +30,14 @@ public class Player : MonoBehaviour
             float distanceSqrd = m_moveDir.sqrMagnitude;
 
 
-            if (distanceSqrd > m_moveSpeed*2)
-            {
-                this.transform.up = m_moveDir.normalized;
-                this.transform.position += this.transform.up * m_moveSpeed * Time.deltaTime;
-            }
+            //if (distanceSqrd > m_moveSpeed*2)
+            //{
+               
+            //}
 
         }
+
+        this.transform.up = m_moveDir.normalized;
+        this.transform.position += this.transform.up * m_moveSpeed * Time.deltaTime;
     }
 }
