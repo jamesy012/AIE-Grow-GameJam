@@ -8,12 +8,12 @@ public class Player : MonoBehaviour
 
 
     private Vector3 m_moveDir = Vector3.zero;
-    
+    private CharacterController m_charCont;
 
     // Use this for initialization
     void Start()
     {
-
+        m_charCont = this.GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -38,6 +38,6 @@ public class Player : MonoBehaviour
         }
 
         this.transform.up = m_moveDir.normalized;
-        this.transform.position += this.transform.up * m_moveSpeed * Time.deltaTime;
+        m_charCont.Move(this.transform.up * m_moveSpeed * Time.deltaTime);
     }
 }
