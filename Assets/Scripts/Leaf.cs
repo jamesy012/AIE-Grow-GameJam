@@ -40,7 +40,7 @@ public class Leaf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_timer += Time.deltaTime;
+        m_timer += Time.deltaTime * SpeedScale.m_SpeedScale;
         m_ratio = m_timer / m_lifeTime;
         m_currScale = m_curve.Evaluate(m_ratio) * m_endScale;
 
@@ -49,11 +49,11 @@ public class Leaf : MonoBehaviour
 
         if(m_randNum == 0)
         {
-            this.transform.position += this.transform.right * m_offsetSpeed.Evaluate(m_ratio) * Time.deltaTime;
+            this.transform.position += this.transform.right * m_offsetSpeed.Evaluate(m_ratio) * Time.deltaTime * SpeedScale.m_SpeedScale;
         }
         else
         {
-            this.transform.position -= this.transform.right * m_offsetSpeed.Evaluate(m_ratio) * Time.deltaTime;
+            this.transform.position -= this.transform.right * m_offsetSpeed.Evaluate(m_ratio) * Time.deltaTime * SpeedScale.m_SpeedScale;
         }
 
 

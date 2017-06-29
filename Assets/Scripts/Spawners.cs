@@ -61,8 +61,8 @@ public class Spawners : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_timer += Time.deltaTime;
-        m_spawnSpeedIncreaseTimer += Time.deltaTime;
+        m_timer += Time.deltaTime * SpeedScale.m_SpeedScale;
+        m_spawnSpeedIncreaseTimer += Time.deltaTime * SpeedScale.m_SpeedScale;
 
         if (m_timer >= m_spawnInterval)
         {
