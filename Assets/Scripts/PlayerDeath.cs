@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour {
 
     private Transform m_PlayerTransform;
-    private Retry m_Retry;
+    private Menu m_Retry;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +16,7 @@ public class PlayerDeath : MonoBehaviour {
         }
         m_PlayerTransform = player.transform;
 
-        m_Retry = FindObjectOfType<Retry>();
+        m_Retry = FindObjectOfType<Menu>();
         if (m_Retry == null) {
             Debug.LogError(GetType().ToString() + ": " + transform.name + " cant find Retry script");
             return;

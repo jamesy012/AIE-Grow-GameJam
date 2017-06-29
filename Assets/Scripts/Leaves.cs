@@ -62,4 +62,13 @@ public class Leaves : MonoBehaviour
 
         m_prevPos = m_currPos;
     }
+
+    public void hideAllLeafs() {
+        //todo fix big leafs appearing when you die quickly
+        for (int i = 0; i < m_leaves.Count; ++i) {
+            if (m_leaves[i].activeInHierarchy) {
+                m_leaves[i].SetActive(false);
+            }
+        }
+    }
 }

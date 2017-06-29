@@ -9,7 +9,7 @@ public enum CameraModes {
     MoveUp,
 }
 
-public class CameraScript : MonoBehaviour {
+public class CameraScript : IReset {
 
     public CameraModes m_CameraMode;
 
@@ -125,6 +125,6 @@ public class CameraScript : MonoBehaviour {
             posOffset *= m_SpeedDecreaseWhenUnderMidPoint;
         }
 
-        transform.position = transform.position + (posOffset*Time.deltaTime);
+        transform.position = transform.position + (posOffset*Time.deltaTime * SpeedScale.m_SpeedScale);
     }
 }
