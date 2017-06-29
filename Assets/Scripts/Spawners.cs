@@ -14,9 +14,13 @@ public class Spawners : MonoBehaviour
 
     public List<GameObject> m_SpawnList = new List<GameObject>();
     public float m_spawnInterval = 1.5f;
+    public float m_spawnRateIncrease = 0.05f;
 
     private GameObject m_SpawnedObject = null;
     float m_timer = 0.0f;
+
+    public float m_spawnSpeedIncreaseInterval = 2.0f;
+    float m_spawnSpeedIncreaseTimer = 0.0f;
     
     // Use this for initialization
     void Start()
@@ -58,11 +62,22 @@ public class Spawners : MonoBehaviour
     void Update()
     {
         m_timer += Time.deltaTime;
+        m_spawnSpeedIncreaseTimer += Time.deltaTime;
 
-        if(m_timer >= m_spawnInterval)
+        if (m_timer >= m_spawnInterval)
         {
             SpawnObject();
             m_timer = 0.0f;
+
+        }
+
+        if(m_spawnSpeedIncreaseTimer >= m_spawnSpeedIncreaseInterval)
+        {
+            if (m_spawnInterval > 0.3f)
+            {
+                m_spawnInterval -= m_spawnRateIncrease;
+            }
+            m_spawnSpeedIncreaseTimer = 0.0f;
         }
     }
 
