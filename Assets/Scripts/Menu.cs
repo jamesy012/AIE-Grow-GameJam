@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour {
     public GameObject m_ReplayButton;
     public GameObject m_MenuButton;
     public GameObject m_PauseDarkOverlay;
+    public GameObject m_PauseText;
 
     public bool m_IsPaused = false;
 
@@ -19,6 +20,7 @@ public class Menu : MonoBehaviour {
     void Start() {
         hideScreen();
         SpeedScale.m_SpeedScale = 0.0f;
+        m_PauseText.SetActive(false);
     }
 
     public void showScreen() {
@@ -40,6 +42,7 @@ public class Menu : MonoBehaviour {
     public void pause() {
         m_IsPaused = !m_IsPaused;
         m_PauseDarkOverlay.SetActive(m_IsPaused);
+        m_PauseText.SetActive(m_IsPaused);
         if (m_IsPaused) {
             SpeedScale.m_SpeedScale = 0.0f;
         }else {
@@ -53,13 +56,19 @@ public class Menu : MonoBehaviour {
         for (int i = 0; i < a_List.Length; i++) {
             a_List[i].reset();
         }
+        Spawners[] a_SpawnersList = FindObjectsOfType<Spawners>();
+        for (int i = 0; i < a_SpawnersList.Length; i++) {
+            a_SpawnersList[i].Reset();
+        }
+
+
     }
 
     private void setMenuActive(bool a_Active) {
         m_Title.SetActive(a_Active);
         m_HighscoreText.SetActive(a_Active);
         m_ReplayButton.SetActive(a_Active);
-        m_MenuButton.SetActive(a_Active);
+        //m_MenuButton.SetActive(a_Active);
 
         m_PauseButton.SetActive(!a_Active);
         m_HighscoreNumber.gameObject.SetActive(a_Active);
