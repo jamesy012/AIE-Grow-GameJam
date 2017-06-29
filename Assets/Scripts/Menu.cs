@@ -21,6 +21,9 @@ public class Menu : MonoBehaviour {
         hideScreen();
         SpeedScale.m_SpeedScale = 0.0f;
         m_PauseText.SetActive(false);
+
+        m_HighscoreText.SetActive(true);
+        m_HighscoreNumber.gameObject.SetActive(true);
     }
 
     public void showScreen() {
