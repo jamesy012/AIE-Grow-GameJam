@@ -14,6 +14,7 @@ public class Leaves : MonoBehaviour
     private Vector3 m_prevPos =  Vector3.zero;
     private float m_deltaDist = 0.0f;
     private List<GameObject> m_leaves = new List<GameObject>();
+    private float m_randHeightOffset = 0.0f;
     // Use this for initialization
     void Start()
     {
@@ -36,8 +37,9 @@ public class Leaves : MonoBehaviour
         {
             if(!m_leaves[i].activeInHierarchy)
             {
-                
-                
+                m_randHeightOffset = Random.Range(-2.0f, 2.0f);
+
+
                 m_leaves[i].transform.position = this.transform.position;
                 m_leaves[i].transform.up = this.transform.up;
                 m_leaves[i].SetActive(true);
@@ -52,7 +54,7 @@ public class Leaves : MonoBehaviour
         m_currPos = this.transform.position;
 
         m_deltaDist += Vector3.Distance(m_currPos, m_prevPos);
-        if(m_deltaDist > m_leafHeightInterval)
+        if (m_deltaDist > m_leafHeightInterval + m_randHeightOffset)
         {
             SpawnLeaf();
             m_deltaDist = 0.0f;
