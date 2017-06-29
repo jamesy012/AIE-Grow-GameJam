@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
-public class Spawners : MonoBehaviour {
+public class Spawners : MonoBehaviour
+{
 
     /// <summary>
     /// dds
@@ -12,16 +13,26 @@ public class Spawners : MonoBehaviour {
     public float m_Width = 5.0f;
 
     public List<GameObject> m_SpawnList = new List<GameObject>();
+    public float m_spawnInterval = 1.5f;
 
     private GameObject m_SpawnedObject = null;
-
+    float m_timer = 0.0f;
+    
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
 
-        if(m_SpawnList.Count == 0) {
+        if (m_SpawnList.Count == 0)
+        {
             return;
         }
 
+
+
+    }
+
+    void SpawnObject()
+    {
         int randomObjectIndex = Random.Range(0, m_SpawnList.Count);
 
         m_SpawnedObject = Instantiate(m_SpawnList[randomObjectIndex]);
@@ -39,17 +50,24 @@ public class Spawners : MonoBehaviour {
 
         Transform sOTransform = m_SpawnedObject.transform;
 
-        sOTransform.parent = transform;
+        //sOTransform.parent = transform;
         sOTransform.position = pos;
-
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
+        m_timer += Time.deltaTime;
 
+        if(m_timer >= m_spawnInterval)
+        {
+            SpawnObject();
+            m_timer = 0.0f;
+        }
     }
 
-    void OnDrawGizmosSelected() {
+    void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.red;
 
         Vector3 offset = (transform.rotation * new Vector3(m_Width, 0));
@@ -59,11 +77,13 @@ public class Spawners : MonoBehaviour {
         Gizmos.DrawSphere(transform.position - offset, width);
     }
 
-    void OnBecameInvisible() {
-        if (m_SpawnedObject != null) {
-            Destroy(m_SpawnedObject);
-        }
-        Destroy(gameObject);
-    }
+    //void OnBecameInvisible()
+    //{
+    //    if (m_SpawnedObject != null)
+    //    {
+    //        Destroy(m_SpawnedObject);
+    //    }
+    //    Destroy(gameObject);
+    //}
 
 }
