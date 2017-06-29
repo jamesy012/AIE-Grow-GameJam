@@ -34,7 +34,7 @@ public class Player : IReset
 
         }
         m_currentHeight = this.transform.position.y;
-        this.transform.up = m_moveDir.normalized;
+        this.transform.up = m_moveDir.normalized * SpeedScale.m_SpeedScale;
         m_charCont.Move(this.transform.up * m_moveSpeed * Time.deltaTime * SpeedScale.m_SpeedScale);
 
 

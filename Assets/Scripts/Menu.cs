@@ -11,12 +11,14 @@ public class Menu : MonoBehaviour {
     public GameObject m_PauseButton;
     public GameObject m_ReplayButton;
     public GameObject m_MenuButton;
+    public GameObject m_PauseDarkOverlay;
 
     public bool m_IsPaused = false;
 
 
     void Start() {
         hideScreen();
+        SpeedScale.m_SpeedScale = 0.0f;
     }
 
     public void showScreen() {
@@ -37,6 +39,12 @@ public class Menu : MonoBehaviour {
 
     public void pause() {
         m_IsPaused = !m_IsPaused;
+        m_PauseDarkOverlay.SetActive(m_IsPaused);
+        if (m_IsPaused) {
+            SpeedScale.m_SpeedScale = 0.0f;
+        }else {
+            SpeedScale.m_SpeedScale = 1.0f;
+        }
     }
 
     private void resetList() {
