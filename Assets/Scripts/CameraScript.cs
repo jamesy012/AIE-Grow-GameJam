@@ -5,7 +5,8 @@ using UnityEngine;
 public enum CameraModes {
     Debug,
     DontMove,
-    SideMove
+    SideMove,
+    MoveUp,
 }
 
 public class CameraScript : MonoBehaviour {
@@ -21,6 +22,11 @@ public class CameraScript : MonoBehaviour {
     public float m_HorizontalRatio = 0.25f;
 
     public Vector2 m_CameraMoveSpeed = Vector2.one * 0.25f;
+
+    [Header("Move up varaibles")]
+    public float m_MoveUpSpeed = 10.0f;
+    public float m_SpeedDecreaseWhenUnderMidPoint = 0.75f;
+
 
     // Use this for initialization
     void Start() {
@@ -46,6 +52,9 @@ public class CameraScript : MonoBehaviour {
                 break;
             case CameraModes.SideMove:
                 sideMove();
+                break;
+            case CameraModes.MoveUp:
+                moveUp();
                 break;
             case CameraModes.DontMove:
             default:
@@ -102,5 +111,20 @@ public class CameraScript : MonoBehaviour {
     private float calcRatioFromSideOfScreen(float a_ScreenSize, float a_PlayerPos, bool a_Horizontal) {
         float ratio = a_Horizontal ? m_HorizontalRatio : m_VerticalRatio;
         return (a_PlayerPos / (a_ScreenSize / 2) - (ratio * 2.0f)) * 2;
+    }
+
+    private void moveUp() {
+        Vector3 posOffset = new Vector3(0,10,0);
+
+        Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(m_PlayerTransform.position);
+        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        playerScreenPos -= screenSize / 2;
+
+        //if the player is below the midpoint of the screen
+        if (playerScreenPos.y < 0) {
+            posOffset *= m_SpeedDecreaseWhenUnderMidPoint;
+        }
+
+        transform.position = transform.position + (posOffset*Time.deltaTime);
     }
 }
