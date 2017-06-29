@@ -24,6 +24,16 @@ public class Menu : MonoBehaviour {
     }
 
     public void showScreen() {
+        int currHighscore = PlayerPrefs.GetInt("HighscoreNumber", 0);
+        Player player = FindObjectOfType<Player>();
+
+        if (player.m_currentHeight > currHighscore) {
+            currHighscore = (int)player.m_currentHeight;
+            PlayerPrefs.SetInt("HighscoreNumber", currHighscore = (int)player.m_currentHeight);
+        }
+
+        m_HighscoreNumber.text = currHighscore + "m";
+
         SpeedScale.m_SpeedScale = 0.0f;
         setMenuActive(true);
     }
@@ -45,13 +55,13 @@ public class Menu : MonoBehaviour {
         m_PauseText.SetActive(m_IsPaused);
         if (m_IsPaused) {
             SpeedScale.m_SpeedScale = 0.0f;
-        }else {
+        } else {
             SpeedScale.m_SpeedScale = 1.0f;
         }
     }
 
     private void resetList() {
-        
+
         IReset[] a_List = FindObjectsOfType<IReset>();
         for (int i = 0; i < a_List.Length; i++) {
             a_List[i].reset();
