@@ -33,8 +33,8 @@ public class Leaf : MonoBehaviour
     {
          m_randNum = Random.Range(0, 2);
 
-
-
+        m_timer = 0.0f;
+        this.transform.localScale = m_scaleVector * m_startScale;
     }
 
     // Update is called once per frame
