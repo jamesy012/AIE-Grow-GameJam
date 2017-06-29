@@ -22,7 +22,7 @@ public class Spawners : MonoBehaviour
     public float m_spawnSpeedIncreaseInterval = 2.0f;
     float m_spawnSpeedIncreaseTimer = 0.0f;
 
-    private float m_origSpawnInterval;
+    private float m_origSpawnInterval = 1.5f;
   
     // Use this for initialization
     void Start()
@@ -50,7 +50,7 @@ public class Spawners : MonoBehaviour
         offset = Random.Range(0, offset);
         offset -= m_Width;
 
-        print(offset);
+        //print(offset);
 
         pos.x += offset;
 
