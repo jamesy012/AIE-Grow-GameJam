@@ -36,7 +36,8 @@ public class Leaves : MonoBehaviour
         {
             if(!m_leaves[i].activeInHierarchy)
             {
-
+                
+                
                 m_leaves[i].transform.position = this.transform.position;
                 m_leaves[i].transform.up = this.transform.up;
                 m_leaves[i].SetActive(true);
