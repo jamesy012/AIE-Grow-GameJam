@@ -21,10 +21,13 @@ public class Spawners : MonoBehaviour
 
     public float m_spawnSpeedIncreaseInterval = 2.0f;
     float m_spawnSpeedIncreaseTimer = 0.0f;
-    
+
+    private float m_origSpawnInterval;
+  
     // Use this for initialization
     void Start()
     {
+        m_origSpawnInterval = m_spawnInterval;
 
         if (m_SpawnList.Count == 0)
         {
@@ -61,6 +64,7 @@ public class Spawners : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         m_timer += Time.deltaTime * SpeedScale.m_SpeedScale;
         m_spawnSpeedIncreaseTimer += Time.deltaTime * SpeedScale.m_SpeedScale;
 
@@ -92,13 +96,11 @@ public class Spawners : MonoBehaviour
         Gizmos.DrawSphere(transform.position - offset, width);
     }
 
-    //void OnBecameInvisible()
-    //{
-    //    if (m_SpawnedObject != null)
-    //    {
-    //        Destroy(m_SpawnedObject);
-    //    }
-    //    Destroy(gameObject);
-    //}
+    public void Reset()
+    {
+        m_timer = 0.0f;
+        m_spawnSpeedIncreaseTimer = 0.0f;
+        m_spawnInterval = m_origSpawnInterval;
+    }
 
 }
