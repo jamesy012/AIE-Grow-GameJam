@@ -10,8 +10,8 @@ public class Leaves : MonoBehaviour
 
 
     private float m_startingHeight = 0.0f;
-    private Vector3 m_currPos =  Vector3.zero;
-    private Vector3 m_prevPos =  Vector3.zero;
+    private Vector3 m_currPos = Vector3.zero;
+    private Vector3 m_prevPos = Vector3.zero;
     private float m_deltaDist = 0.0f;
     private List<GameObject> m_leaves = new List<GameObject>();
     private float m_randHeightOffset = 0.0f;
@@ -22,7 +22,7 @@ public class Leaves : MonoBehaviour
         m_currPos = this.transform.position;
         if (m_leafPrefab != null)
         {
-            for(int i = 0; i< m_poolAmount; ++i)
+            for (int i = 0; i < m_poolAmount; ++i)
             {
                 GameObject leaf = GameObject.Instantiate(m_leafPrefab);
                 leaf.SetActive(false);
@@ -35,7 +35,7 @@ public class Leaves : MonoBehaviour
     {
         for (int i = 0; i < m_poolAmount; ++i)
         {
-            if(!m_leaves[i].activeInHierarchy)
+            if (!m_leaves[i].activeInHierarchy)
             {
                 m_randHeightOffset = Random.Range(-2.0f, 2.0f);
 
@@ -63,10 +63,14 @@ public class Leaves : MonoBehaviour
         m_prevPos = m_currPos;
     }
 
-    public void hideAllLeafs() {
+    public void hideAllLeafs()
+    {
         //todo fix big leafs appearing when you die quickly
-        for (int i = 0; i < m_leaves.Count; ++i) {
-            if (m_leaves[i].activeInHierarchy) {
+        for (int i = 0; i < m_leaves.Count; ++i)
+        {
+            if (m_leaves[i].activeInHierarchy)
+            {
+
                 m_leaves[i].SetActive(false);
             }
         }
