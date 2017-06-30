@@ -14,6 +14,11 @@ public class Menu : MonoBehaviour {
     public GameObject m_PauseDarkOverlay;
     public GameObject m_PauseText;
 
+    public GameObject m_TapArrow;
+    public GameObject m_TapText;
+
+    public GameObject m_GameStartObject;
+
     public bool m_IsPaused = false;
 
 
@@ -22,8 +27,6 @@ public class Menu : MonoBehaviour {
         SpeedScale.m_SpeedScale = 0.0f;
         m_PauseText.SetActive(false);
 
-        m_HighscoreText.SetActive(true);
-        m_HighscoreNumber.gameObject.SetActive(true);
     }
 
     public void showScreen() {
@@ -39,10 +42,15 @@ public class Menu : MonoBehaviour {
 
         SpeedScale.m_SpeedScale = 0.0f;
         setMenuActive(true);
+
+        m_TapText.SetActive(false);
+        m_TapArrow.SetActive(false);
+        m_Title.SetActive(true);
     }
 
     public void hideScreen() {
-        SpeedScale.m_SpeedScale = 1.0f;
+        SpeedScale.m_SpeedScale = 0.0f;
+        m_GameStartObject.SetActive(true);
         resetList();
         setMenuActive(false);
         Player player = FindObjectOfType<Player>();
@@ -50,6 +58,13 @@ public class Menu : MonoBehaviour {
         tr.Clear();
         Leaves leaves = player.GetComponent<Leaves>();
         leaves.hideAllLeafs();
+
+
+        m_HighscoreText.SetActive(true);
+        m_HighscoreNumber.gameObject.SetActive(true);
+        m_TapText.SetActive(true);
+        m_TapArrow.SetActive(true);
+        m_Title.SetActive(true);
     }
 
     public void pause() {
@@ -78,7 +93,7 @@ public class Menu : MonoBehaviour {
     }
 
     private void setMenuActive(bool a_Active) {
-        m_Title.SetActive(a_Active);
+        //m_Title.SetActive(a_Active);
         m_HighscoreText.SetActive(a_Active);
         m_ReplayButton.SetActive(a_Active);
         //m_MenuButton.SetActive(a_Active);
