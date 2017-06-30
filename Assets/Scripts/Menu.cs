@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour {
+public class Menu : MonoBehaviour
+{
 
     public GameObject m_Title;
     public GameObject m_HighscoreText;
@@ -22,20 +23,25 @@ public class Menu : MonoBehaviour {
     public bool m_IsPaused = false;
 
 
-    void Start() {
+    void Start()
+    {
+        hideScreen();
+        showScreen();
         hideScreen();
         SpeedScale.m_SpeedScale = 0.0f;
         m_PauseText.SetActive(false);
 
     }
 
-    public void showScreen() {
+    public void showScreen()
+    {
         int currHighscore = PlayerPrefs.GetInt("HighscoreNumber", 0);
         Player player = FindObjectOfType<Player>();
 
-        if (player.m_currentHeight > currHighscore) {
-            currHighscore = (int)player.m_currentHeight;
-            PlayerPrefs.SetInt("HighscoreNumber", currHighscore = (int)player.m_currentHeight);
+        if (player.m_currentHeight > currHighscore)
+        {
+            currHighscore = Mathf.RoundToInt(player.m_currentHeight);
+            PlayerPrefs.SetInt("HighscoreNumber", currHighscore = Mathf.RoundToInt(player.m_currentHeight));
         }
 
         m_HighscoreNumber.text = currHighscore + "m";
@@ -51,6 +57,7 @@ public class Menu : MonoBehaviour {
     public void hideScreen() {
         SpeedScale.m_SpeedScale = 0.0f;
         m_GameStartObject.SetActive(true);
+		
         resetList();
         setMenuActive(false);
         Player player = FindObjectOfType<Player>();
@@ -67,25 +74,32 @@ public class Menu : MonoBehaviour {
         m_Title.SetActive(true);
     }
 
-    public void pause() {
+    public void pause()
+    {
         m_IsPaused = !m_IsPaused;
         m_PauseDarkOverlay.SetActive(m_IsPaused);
         m_PauseText.SetActive(m_IsPaused);
-        if (m_IsPaused) {
+        if (m_IsPaused)
+        {
             SpeedScale.m_SpeedScale = 0.0f;
-        } else {
+        }
+        else
+        {
             SpeedScale.m_SpeedScale = 1.0f;
         }
     }
 
-    private void resetList() {
+    private void resetList()
+    {
 
         IReset[] a_List = FindObjectsOfType<IReset>();
-        for (int i = 0; i < a_List.Length; i++) {
+        for (int i = 0; i < a_List.Length; i++)
+        {
             a_List[i].reset();
         }
         Spawners[] a_SpawnersList = FindObjectsOfType<Spawners>();
-        for (int i = 0; i < a_SpawnersList.Length; i++) {
+        for (int i = 0; i < a_SpawnersList.Length; i++)
+        {
             a_SpawnersList[i].Reset();
         }
 
